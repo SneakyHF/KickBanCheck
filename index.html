@@ -42,6 +42,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin: 0 auto; /* Center the button */
         }
 
         button:disabled {
@@ -56,11 +57,11 @@
         #result {
             margin-top: 20px;
             font-size: 18px;
-            color: #ccc;
+            color: #777; /* Neutral color */
         }
 
-        .red {
-            color: red;
+        .green {
+            color: #4caf50;
         }
 
         #logo {
@@ -71,14 +72,14 @@
 <body>
     <div class="container">
         <div id="logo">
-            <svg width="78" height="33" viewBox="0 0 78 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- ... SVG path data ... -->
+            <svg width="80" height="26" viewBox="0 0 80 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0H8.57143V5.71429H11.4286V2.85714H14.2857V0H22.8571V8.57143H20V11.4286H17.1429V14.2857H20V17.1429H22.8571V25.7143H14.2857V22.8571H11.4286V20H8.57143V25.7143H0V0ZM57.1429 0H65.7143V5.71429H68.5714V2.85714H71.4286V0H80V8.57143H77.1429V11.4286H74.2857V14.2857H77.1429V17.1429H80V25.7143H71.4286V22.8571H68.5714V20H65.7143V25.7143H57.1429V0ZM25.7143 0H34.2857V25.7143H25.7143V0ZM45.7143 0H40V2.85714H37.1429V22.8571H40V25.7143H45.7143H54.2857V17.1429H45.7143V8.57143H54.2857V0H45.7143Z" fill="white"></path>
             </svg>
         </div>
         <label for="username">Enter Username</label>
         <input type="text" id="username" required onkeydown="if (event.key === 'Enter') checkBanStatus()">
-        <button onclick="checkBanStatus()" id="submitButton" disabled>Check Ban Status</button>
-        <p id="result" class="red">Ban Status: <span id="banStatus">Unknown</span></p>
+        <button onclick="checkBanStatus()" id="submitButton" disabled>Checks</button>
+        <p id="result" class="green">Ban Status: <span id="banStatus">Unknown</span></p>
     </div>
 
     <script>
@@ -103,7 +104,7 @@
                             var isBanned = data[0].is_banned;
                             var banStatus = document.getElementById("banStatus");
                             banStatus.textContent = isBanned ? "true" : "false";
-                            banStatus.classList.toggle("red", isBanned);
+                            banStatus.classList.toggle("green", !isBanned);
                         } else {
                             document.getElementById("result").textContent = "User not found or invalid response";
                         }
