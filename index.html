@@ -33,19 +33,28 @@
             border: none;
             border-radius: 5px;
             color: #4caf50;
+            position: relative;
+        }
+
+        .clear-button {
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .clear-button:hover {
+            color: #aaa;
         }
 
         input::-webkit-inner-spin-button,
         input::-webkit-outer-spin-button {
             appearance: none;
             margin: 0;
-        }
-
-        .clear-button {
-            display: inline-block;
-            background: none;
-            border: none;
-            cursor: pointer;
         }
 
         button {
@@ -63,7 +72,12 @@
             cursor: not-allowed;
         }
 
-        button:hover {
+        button:disabled:hover {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        button:hover:enabled {
             background-color: #45a049;
         }
 
@@ -94,10 +108,7 @@
             </svg>
         </div>
         <label for="username">Enter Username</label>
-        <div style="position: relative;">
-            <input type="text" id="username" required onkeydown="if (event.key === 'Enter') checkBanStatus()">
-            <button class="clear-button" onclick="clearInput()">X</button>
-        </div>
+        <input type="text" id="username" required onkeydown="if (event.key === 'Enter') checkBanStatus()">
         <button onclick="checkBanStatus()" id="submitButton" disabled>Check</button>
         <p id="result" class="green">Status: <span id="banStatus">Unknown</span></p>
     </div>
@@ -135,11 +146,6 @@
                 }
             };
             xhr.send();
-        }
-
-        function clearInput() {
-            usernameInput.value = "";
-            submitButton.disabled = true;
         }
     </script>
 </body>
