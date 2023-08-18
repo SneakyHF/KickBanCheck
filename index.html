@@ -88,7 +88,7 @@
         <label for="username">Enter Username</label>
         <input type="text" id="username" required onkeydown="if (event.key === 'Enter') checkBanStatus()">
         <button onclick="checkBanStatus()" id="submitButton" disabled>Check</button>
-        <p id="result" class="green">Banned: <span id="banStatus">Unknown</span></p>
+        <p id="result" class="green">Banned: <span id="banStatus">unknown</span></p>
     </div>
 
     <script>
@@ -112,7 +112,7 @@
                         if (Array.isArray(data) && data.length > 0) {
                             var isBanned = data[0].is_banned;
                             var banStatus = document.getElementById("banStatus");
-                            banStatus.textContent = isBanned ? "Banned" : "Not Banned";
+                            banStatus.textContent = isBanned ? "true" : "false";
                             banStatus.classList.toggle("green", !isBanned);
                             banStatus.classList.toggle("red", isBanned);
                         } else {
