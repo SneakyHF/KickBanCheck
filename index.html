@@ -29,7 +29,7 @@
 
         input {
             padding: 8px;
-            width: 200px;
+            width: 240px;
             border: none;
             border-radius: 5px;
             color: #4caf50;
@@ -44,6 +44,11 @@
             cursor: pointer;
         }
 
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
         button:hover {
             background-color: #45a049;
         }
@@ -51,22 +56,39 @@
         #result {
             margin-top: 20px;
             font-size: 18px;
+            color: #ccc;
         }
-        
+
         .red {
             color: red;
+        }
+
+        #logo {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div id="logo">
+            <svg width="78" height="33" viewBox="0 0 78 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- ... SVG path data ... -->
+            </svg>
+        </div>
         <label for="username">Enter Username</label>
         <input type="text" id="username" required onkeydown="if (event.key === 'Enter') checkBanStatus()">
-        <button onclick="checkBanStatus()">Check Ban Status</button>
+        <button onclick="checkBanStatus()" id="submitButton" disabled>Check Ban Status</button>
         <p id="result" class="red">Ban Status: <span id="banStatus">Unknown</span></p>
     </div>
 
     <script>
+        const usernameInput = document.getElementById("username");
+        const submitButton = document.getElementById("submitButton");
+
+        usernameInput.addEventListener("input", () => {
+            submitButton.disabled = usernameInput.value === "";
+        });
+
         function checkBanStatus() {
             var username = document.getElementById("username").value;
             var url = "https://kick.com/emotes/" + encodeURIComponent(username);
