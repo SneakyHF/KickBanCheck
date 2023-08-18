@@ -33,28 +33,6 @@
             border: none;
             border-radius: 5px;
             color: #4caf50;
-            position: relative;
-        }
-
-        .clear-button {
-            position: absolute;
-            top: 50%;
-            right: 8px;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #ccc;
-            cursor: pointer;
-        }
-
-        .clear-button:hover {
-            color: #aaa;
-        }
-
-        input::-webkit-inner-spin-button,
-        input::-webkit-outer-spin-button {
-            appearance: none;
-            margin: 0;
         }
 
         button {
@@ -110,7 +88,7 @@
         <label for="username">Enter Username</label>
         <input type="text" id="username" required onkeydown="if (event.key === 'Enter') checkBanStatus()">
         <button onclick="checkBanStatus()" id="submitButton" disabled>Check</button>
-        <p id="result" class="green">Status: <span id="banStatus">Unknown</span></p>
+        <p id="result" class="green">Banned: <span id="banStatus">Unknown</span></p>
     </div>
 
     <script>
@@ -134,7 +112,7 @@
                         if (Array.isArray(data) && data.length > 0) {
                             var isBanned = data[0].is_banned;
                             var banStatus = document.getElementById("banStatus");
-                            banStatus.textContent = isBanned ? "true" : "false";
+                            banStatus.textContent = isBanned ? "Banned" : "Not Banned";
                             banStatus.classList.toggle("green", !isBanned);
                             banStatus.classList.toggle("red", isBanned);
                         } else {
