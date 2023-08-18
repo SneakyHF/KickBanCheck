@@ -4,28 +4,35 @@
     <title>Check Ban Status</title>
 </head>
 <body>
-    <form method="GET">
-        <label for="username">Enter Username:</label>
-        <input type="text" id="username" name="username" required>
-        <button type="submit">Check Ban Status</button>
-    </form>
+    <label for="username">Enter Username:</label>
+    <input type="text" id="username" required>
+    <button onclick="checkBanStatus()">Check Ban Status</button>
+    <p id="result"></p>
 
-    <?php
-    if (isset($_GET['username'])) {
-        $username = urlencode($_GET['username']);
-        $url = "https://kick.com/emotes/{$username}";
-        
-        $response = file_get_contents($url);
-        $data = json_decode($response, true);
-        
-        if (is_array($data) && count($data) > 0) {
-            $isBanned = $data[0]['is_banned'];
-            
-            echo "<p>Ban Status: " . ($isBanned ? 'true' : 'false') . "</p>";
-        } else {
-            echo "<p>User not found or invalid response</p>";
+    <script>
+        function checkBanStatus() {
+            var username = document.getElementById("username").value;
+            var url = "https://kick.com/emotes/" + encodeURIComponent(username);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var data = JSON.parse(xhr.responseText);
+                        if (Array.isArray(data) && data.length > 0) {
+                            var isBanned = data[0].is_banned;
+                            document.getElementById("result").textContent = "Ban Status: " + (isBanned ? "true" : "false");
+                        } else {
+                            document.getElementById("result").textContent = "User not found or invalid response";
+                        }
+                    } else {
+                        document.getElementById("result").textContent = "Error: " + xhr.statusText;
+                    }
+                }
+            };
+            xhr.send();
         }
-    }
-    ?>
+    </script>
 </body>
 </html>
