@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Check Ban Status</title>
+    <title>Kick.com | Check Ban Status</title>
     <style>
         body {
             display: flex;
@@ -22,7 +22,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
-        label {
+        label, input, button {
             display: block;
             margin-bottom: 10px;
         }
@@ -32,6 +32,7 @@
             width: 200px;
             border: none;
             border-radius: 5px;
+            color: #4caf50;
         }
 
         button {
@@ -51,14 +52,18 @@
             margin-top: 20px;
             font-size: 18px;
         }
+        
+        .red {
+            color: red;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <label for="username">Enter Username:</label>
-        <input type="text" id="username" required>
+        <label for="username">Enter Username</label>
+        <input type="text" id="username" required onkeydown="if (event.key === 'Enter') checkBanStatus()">
         <button onclick="checkBanStatus()">Check Ban Status</button>
-        <p id="result"></p>
+        <p id="result" class="red">Ban Status: <span id="banStatus">Unknown</span></p>
     </div>
 
     <script>
@@ -74,7 +79,9 @@
                         var data = JSON.parse(xhr.responseText);
                         if (Array.isArray(data) && data.length > 0) {
                             var isBanned = data[0].is_banned;
-                            document.getElementById("result").textContent = "Ban Status: " + (isBanned ? "true" : "false");
+                            var banStatus = document.getElementById("banStatus");
+                            banStatus.textContent = isBanned ? "true" : "false";
+                            banStatus.classList.toggle("red", isBanned);
                         } else {
                             document.getElementById("result").textContent = "User not found or invalid response";
                         }
