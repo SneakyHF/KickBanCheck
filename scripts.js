@@ -10,6 +10,8 @@ usernameInput.addEventListener("input", () => {
 usernameInput.addEventListener("keyup", (event) => {
     if (event.key === "Enter" && usernameInput.value.trim() !== "") {
         checkBanStatus();
+    } else if (event.key === "Enter") {
+        event.preventDefault(); // Prevent the default behavior of the Enter key
     }
 });
 
