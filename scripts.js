@@ -3,22 +3,18 @@ const submitButton = document.getElementById("submitButton");
 const userInfoElement = document.getElementById("userInfo");
 const banStatus = document.getElementById("banStatus");
 
-usernameInput.addEventListener("input", () => {
-    submitButton.disabled = usernameInput.value === "";
+usernameInput.addEventListener("input", (event) => {
+    submitButton.disabled = event.target.value === "";
+    updateCheckButtonState();
 });
 
 usernameInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        if (usernameInput.value.trim() === "") {
-            event.preventDefault(); // Prevent the default behavior of the Enter key
-        } else {
-            checkBanStatus();
-        }
+    if (event.key === "Enter" && usernameInput.value.trim() === "") {
+        event.preventDefault(); // Prevent the default behavior of the Enter key
+    } else if (event.key === "Enter") {
+        checkBanStatus();
     }
 });
-
-// Add an event listener to the input field to update the "Check" button's state
-usernameInput.addEventListener("input", updateCheckButtonState);
 
 // Call the function initially to set the initial state
 updateCheckButtonState();
