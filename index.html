@@ -2,124 +2,8 @@
 <html>
 <head>
     <title>Kick.com | User Lookup</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #282c36;
-            font-family: Arial, sans-serif;
-            color: #ffffff;
-        }
-
-        .container {
-            text-align: center;
-            background-color: #37474f;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-
-        label, input, button {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input {
-            padding: 8px;
-            width: 200px;
-            border: none;
-            border-radius: 5px;
-            color: #4caf50;
-        }
-
-        button {
-            padding: 8px 20px;
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 0 auto;
-        }
-
-        button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-
-        button:disabled:hover {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-
-        button:hover:enabled {
-            background-color: #45a049;
-        }
-
-        #result {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #777;
-        }
-
-        .green {
-            color: #4caf50;
-        }
-
-        .red {
-            color: red;
-        }
-
-        #logo {
-            margin-bottom: 20px;
-        }
-
-        .info {
-            text-align: left;
-            font-size: 14px;
-            margin-top: 20px;
-        }
-
-        .info img {
-            max-width: 100px;
-            max-height: 100px;
-        }
-
-        .info .social-links a {
-            margin-right: 10px;
-            color: #4caf50; /* Theme accent color for links */
-        }
-
-        .info p {
-            white-space: pre-wrap;
-            margin: 10px 0; /* Add spacing between paragraphs */
-        }
-
-        .playback-button {
-            display: block;
-            margin: 10px auto; /* Add margin for spacing */
-            padding: 6px 10px;
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .bio {
-            max-width: 500px; /* Set the maximum width as needed */
-            white-space: pre-line;
-            margin: 0 auto; /* Center align the bio text */
-        }
-
-        /* Theme accent color for text */
-        .accent-text {
-            color: #4caf50;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div class="container">
@@ -145,55 +29,70 @@
         });
 
         function checkBanStatus() {
-            var username = document.getElementById("username").value;
-            var url = "https://kick.com/emotes/" + encodeURIComponent(username);
+    const username = document.getElementById("username").value;
+    const url = "https://kick.com/emotes/" + encodeURIComponent(username);
+    const xhr = new XMLHttpRequest();
 
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", url, true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        var data = JSON.parse(xhr.responseText);
-                        if (Array.isArray(data) && data.length > 0) {
-                            var isBanned = data[0].is_banned;
-                            var banStatus = document.getElementById("banStatus");
-                            banStatus.textContent = isBanned ? "true" : "false";
-                            banStatus.classList.toggle("green", !isBanned);
-                            banStatus.classList.toggle("red", isBanned);
+    xhr.open("GET", url, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                const data = JSON.parse(xhr.responseText);
+                const resultElement = document.getElementById("result");
+                const userInfoElement = document.getElementById("userInfo");
+                const playbackButton = document.getElementById("playbackButton");
+                
+                if (Array.isArray(data) && data.length > 0) {
+                    const isBanned = data[0].is_banned;
+                    const banStatus = document.getElementById("banStatus");
+                    
+                    banStatus.textContent = isBanned ? "true" : "false";
+                    banStatus.classList.toggle("green", !isBanned);
+                    banStatus.classList.toggle("red", isBanned);
 
-                            // Display additional user info
-                            userInfoDiv.innerHTML = `
-                                <center><img src="${data[0].user.profile_pic}" alt="Profile Picture"></center>
-                                <br>
-                                <center><p class="bio"><i>${data[0].user.bio}</i></p></center>
-                                <br>
-                                <p><b>User ID</b>: ${data[0].user_id}</p>
-                                <p><b>Subscription Enabled</b>: ${data[0].subscription_enabled}</p>
-                                <p><b>VOD Enabled</b>: ${data[0].vod_enabled}</p>
-                                <p><b>Can Host</b>: ${data[0].can_host}</p>
-                                <div class="social-links">
-                                    ${data[0].user.discord ? `<a href="https://discord.gg/${data[0].user.discord}">Discord</a>` : ''}
-                                    ${data[0].user.facebook ? `<a href="https://facebook.com/${data[0].user.facebook}">Facebook</a>` : ''}
-                                    ${data[0].user.instagram ? `<a href="https://instagram.com/${data[0].user.instagram}">Instagram</a>` : ''}
-                                    ${data[0].user.tiktok ? `<a href="https://tiktok.com/@${data[0].user.tiktok}">TikTok</a>` : ''}
-                                    ${data[0].user.twitter ? `<a href="https://twitter.com/${data[0].user.twitter}">Twitter</a>` : ''}
-                                    ${data[0].user.youtube ? `<a href="https://youtube.com/@${data[0].user.youtube}">YouTube</a>` : ''}
-                                </div>
-                                <br>
-                                <button id="playbackButton" class="playback-button" onclick="copyPlaybackURL('${data[0].playback_url}')">Copy Playback URL</button>
-                            `;
-                        } else {
-                            document.getElementById("result").textContent = "User not found or invalid response";
-                            userInfoDiv.innerHTML = ""; // Clear previous user info
-                        }
-                    } else {
-                        document.getElementById("result").textContent = "Error: " + xhr.statusText;
-                        userInfoDiv.innerHTML = ""; // Clear previous user info
-                    }
+                    // Display user info
+                    userInfoElement.innerHTML = `
+                        <center><img src="${data[0].user.profile_pic}" alt="Profile Picture"></center>
+                        <br>
+                        <center><p class="bio"><i>${data[0].user.bio}</i></p></center>
+                        <br>
+                        <p><b>User ID</b>: ${data[0].user_id}</p>
+                        <p><b>Subscription Enabled</b>: ${data[0].subscription_enabled}</p>
+                        <p><b>VOD Enabled</b>: ${data[0].vod_enabled}</p>
+                        <p><b>Can Host</b>: ${data[0].can_host}</p>
+                        <div class="social-links">
+                            ${data[0].user.discord ? `<a href="https://discord.gg/${data[0].user.discord}">Discord</a>` : ''}
+                            ${data[0].user.facebook ? `<a href="https://facebook.com/${data[0].user.facebook}">Facebook</a>` : ''}
+                            ${data[0].user.instagram ? `<a href="https://instagram.com/${data[0].user.instagram}">Instagram</a>` : ''}
+                            ${data[0].user.tiktok ? `<a href="https://tiktok.com/@${data[0].user.tiktok}">TikTok</a>` : ''}
+                            ${data[0].user.twitter ? `<a href="https://twitter.com/${data[0].user.twitter}">Twitter</a>` : ''}
+                            ${data[0].user.youtube ? `<a href="https://youtube.com/@${data[0].user.youtube}">YouTube</a>` : ''}
+                        </div>
+                        <br>
+                        <button id="playbackButton" class="playback-button" onclick="copyPlaybackURL('${data[0].playback_url}')">Copy Playback URL</button>
+                    `;
+                    
+                    playbackButton.textContent = "Copy Playback URL";
+                    playbackButton.disabled = false;
+                } else {
+                    // Clear user info
+                    resultElement.textContent = "User not found or invalid response";
+                    banStatus.textContent = "unknown";
+                    banStatus.classList.remove("green", "red");
+                    userInfoElement.innerHTML = ""; // Clear previous user info
+                    playbackButton.textContent = "Copy Playback URL";
+                    playbackButton.disabled = true;
                 }
-            };
-            xhr.send();
+            } else {
+                const resultElement = document.getElementById("result");
+                resultElement.textContent = "Error: " + xhr.statusText;
+                userInfoDiv.innerHTML = ""; // Clear previous user info
+            }
         }
+    };
+    
+    xhr.send();
+}
 
         function copyPlaybackURL(url) {
             const tempInput = document.createElement("input");
