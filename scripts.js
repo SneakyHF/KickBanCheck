@@ -84,18 +84,13 @@ function checkBanStatus() {
                         // Show the user info div
                         showUserInfo();
                     } else {
-                        // No user data found
-                        userInfoElement.innerHTML = `<p>No user data found</p>`;
-                        hideUserInfo();
-                    }
-                } else {
-                    // No data found for the user
+                        // No data found for the user
                     banStatus.textContent = "No data found";
                     banStatus.classList.remove("green", "red"); // Remove any previous styling
 
                     // Hide the user info div
                     hideUserInfo();
-                }
+                    }
             } else {
                 // Error handling when request fails
                 const banStatus = document.getElementById("banStatus");
