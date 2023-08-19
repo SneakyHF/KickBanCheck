@@ -17,6 +17,9 @@ body {
     align-items: center; /* Center horizontally */
     justify-content: center; /* Center vertically */
     height: 100vh; /* Set a minimum height for the container */
+    background-color: #f0f0f0; /* Add a gray background color */
+    border-radius: 10px; /* Add rounded corners */
+    padding: 20px; /* Add padding for spacing */
 }
 
 label, input, button {
@@ -114,18 +117,16 @@ button:hover:enabled {
 
 #username {
     text-align: center;
-    margin: 0 auto 10px;
+    margin: 0 auto 10px auto;
     display: block;
-    width: 100%; /* Ensure the input takes up the full width of the container */
-    max-width: 250px; /* Limit the maximum width of the input */
+    width: 100%;
+    max-width: 250px;
 }
 
 /* Theme accent color for text */
 .accent-text {
     color: #4caf50;
 }
-
-/* Base styles for all devices */
 
 /* Mobile devices (up to 600px width) */
 @media (max-width: 600px) {
