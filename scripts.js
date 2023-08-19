@@ -13,8 +13,18 @@ usernameInput.addEventListener("keyup", (event) => {
     }
 });
 
+// Add an event listener to the input field to update the "Check" button's state
+usernameInput.addEventListener("input", updateCheckButtonState);
+
+// Call the function initially to set the initial state
+updateCheckButtonState();
+
+function updateCheckButtonState() {
+    submitButton.disabled = usernameInput.value === "";
+}
+
 function clearUserInfo() {
-    userInfoElement.innerHTML = ''; // Clear user info
+    userInfoElement.innerHTML = '';
     banStatus.textContent = '';
 }
 
@@ -42,7 +52,7 @@ function checkBanStatus() {
 
                 const isBanned = data[0].is_banned;
 
-                banStatus.textContent = isBanned ? "true" : "false";
+                banStatus.textContent = isBanned ? "True" : "False";
                 banStatus.classList.add(isBanned ? "red" : "green");
                 banStatus.classList.remove(isBanned ? "green" : "red");
 
