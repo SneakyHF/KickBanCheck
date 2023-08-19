@@ -19,9 +19,6 @@ function clearUserInfo() {
     userInfoElement.innerHTML = ''; // Clear user info
     banStatus.textContent = '';
     banStatus.classList.remove("green", "red");
-
-    // Hide the user info div
-    hideUserInfo();
 }
 
 function showUserInfo() {
@@ -40,6 +37,8 @@ function checkBanStatus() {
     const username = document.getElementById("username").value;
     const url = "https://kick.com/emotes/" + encodeURIComponent(username);
     const xhr = new XMLHttpRequest();
+
+    const userInfoElement = document.getElementById("userInfo"); // Declare userInfoElement
 
     xhr.open("GET", url, true);
     xhr.onreadystatechange = function() {
@@ -87,12 +86,18 @@ function checkBanStatus() {
                     // No data found for the user
                     banStatus.textContent = "No data found";
                     banStatus.classList.remove("green", "red"); // Remove any previous styling
+
+                    // Hide the user info div
+                    hideUserInfo();
                 }
             } else {
                 // Error handling when request fails
                 const banStatus = document.getElementById("banStatus");
                 banStatus.textContent = "User not found";
                 banStatus.classList.remove("green", "red"); // Remove any previous styling
+
+                // Hide the user info div
+                hideUserInfo();
             }
         }
     };
