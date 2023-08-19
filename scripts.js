@@ -41,7 +41,7 @@ function checkBanStatus() {
                 if (Array.isArray(data) && data.length > 0) {
                     const isBanned = data[0].is_banned;
 
-                    banStatus.textContent = isBanned ? "true" : "false";
+                    banStatus.textContent = isBanned ? "Banned: true" : "Banned: false";
                     banStatus.classList.toggle("green", !isBanned);
                     banStatus.classList.toggle("red", isBanned);
 
@@ -75,8 +75,10 @@ function checkBanStatus() {
                     playbackButton.disabled = false;
                 } else {
                     // No data found for the user
-                    banStatus.textContent = "User not found.";
-                    refreshPage();
+                    banStatus.textContent = "User not found";
+                    banStatus.classList.remove("green", "red"); // Remove any previous styling
+                    resultElement.classList.remove("green"); // Remove green color styling
+                    resultElement.classList.add("red"); // Add red color styling
                 }
             } else {
                 // Error handling when request fails
