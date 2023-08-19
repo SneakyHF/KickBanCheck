@@ -76,24 +76,69 @@
         #logo {
             margin-bottom: 20px;
         }
+
+        .info {
+            text-align: left;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .info img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .info .social-links a {
+            margin-right: 10px;
+            color: #4caf50; /* Theme accent color for links */
+        }
+
+        .info p {
+            white-space: pre-wrap;
+            margin: 10px 0; /* Add spacing between paragraphs */
+        }
+
+        .playback-button {
+            display: block;
+            margin: 10px auto; /* Add margin for spacing */
+            padding: 6px 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .bio {
+            max-width: 500px; /* Set the maximum width as needed */
+            white-space: pre-line;
+            margin: 0 auto; /* Center align the bio text */
+        }
+
+        /* Theme accent color for text */
+        .accent-text {
+            color: #4caf50;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div id="logo">
             <svg width="80" height="26" viewBox="0 0 80 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0H8.57143V5.71429H11.4286V2.85714H14.2857V0H22.8571V8.57143H20V11.4286H17.1429V14.2857H20V17.1429H22.8571V25.7143H14.2857V22.8571H11.4286V20H8.57143V25.7143H0V0ZM57.1429 0H65.7143V5.71429H68.5714V2.85714H71.4286V0H80V8.57143H77.1429V11.4286H74.2857V14.2857H77.1429V17.1429H80V25.7143H71.4286V22.8571H68.5714V20H65.7143V25.7143H57.1429V0ZM25.7143 0H34.2857V25.7143H25.7143V0ZM45.7143 0H40V2.85714H37.1429V22.8571H40V25.7143H45.7143H54.2857V17.1429H45.7143V8.57143H54.2857V0H45.7143Z" fill="white"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0H8.57143V5.71429H11.4286V2.85714H14.2857V0H22.8571V8.57143H20V11.4286H17.1429V14.2857H20V17.1429H22.8571V25.7143H14.2857V22.8571H11.4286V20H8.57143V25.7143H0V0ZM57.1429 0H65.7143V5.71429H68.5714V2.85714H71.4286V0H80V8.57143H77.1429V11.4286H74.2857V14.2857H77.1429V17.1429H80V25.7143H71.4286V22.8571H68.5714V20H65.7143V25.7143H57.1429V0ZM25.7143 0H34.2857V25.7143H25.7143V0ZM45.7143 0H40V2.85714H37.1429V22.8571H40V25.7143H45.7143H54.2857V17.1429H45.7143V8.57143H54.2857V0H45.7143Z" fill="white"></path>            </svg>
             </svg>
         </div>
         <label for="username">Enter Username</label>
-        <input type="text" id="username" required onkeydown="if (event.key === 'Enter') checkBanStatus()">
-        <button onclick="checkBanStatus()" id="submitButton" disabled>Check</button>
+        <input type="text" id="username" required onkeydown="if (event.key === 'Enter') checkBanStatus()" style="text-align: center; margin: 0 auto 10px; display: block;">
+        <button onclick="checkBanStatus()" id="submitButton" disabled style="margin-top: 10px;">Check</button>
         <p id="result" class="green">Banned: <span id="banStatus">unknown</span></p>
+        <div class="info" id="userInfo"></div>
     </div>
 
     <script>
         const usernameInput = document.getElementById("username");
         const submitButton = document.getElementById("submitButton");
+        const userInfoDiv = document.getElementById("userInfo");
 
         usernameInput.addEventListener("input", () => {
             submitButton.disabled = usernameInput.value === "";
@@ -115,15 +160,51 @@
                             banStatus.textContent = isBanned ? "true" : "false";
                             banStatus.classList.toggle("green", !isBanned);
                             banStatus.classList.toggle("red", isBanned);
+
+                            // Display additional user info
+                            userInfoDiv.innerHTML = `
+                                <center><img src="${data[0].user.profile_pic}" alt="Profile Picture"></center>
+                                <br>
+                                <center><p class="bio"><i>${data[0].user.bio}</i></p></center>
+                                <br>
+                                <p><b>User ID</b>: ${data[0].user_id}</p>
+                                <p><b>Subscription Enabled</b>: ${data[0].subscription_enabled}</p>
+                                <p><b>VOD Enabled</b>: ${data[0].vod_enabled}</p>
+                                <p><b>Can Host</b>: ${data[0].can_host}</p>
+                                <div class="social-links">
+                                    ${data[0].user.discord ? `<a href="https://discord.gg/${data[0].user.discord}">Discord</a>` : ''}
+                                    ${data[0].user.facebook ? `<a href="https://facebook.com/${data[0].user.facebook}">Facebook</a>` : ''}
+                                    ${data[0].user.instagram ? `<a href="https://instagram.com/${data[0].user.instagram}">Instagram</a>` : ''}
+                                    ${data[0].user.tiktok ? `<a href="https://tiktok.com/@${data[0].user.tiktok}">TikTok</a>` : ''}
+                                    ${data[0].user.twitter ? `<a href="https://twitter.com/${data[0].user.twitter}">Twitter</a>` : ''}
+                                    ${data[0].user.youtube ? `<a href="https://youtube.com/@${data[0].user.youtube}">YouTube</a>` : ''}
+                                </div>
+                                <br>
+                                <button id="playbackButton" class="playback-button" onclick="copyPlaybackURL('${data[0].playback_url}')">Copy Playback URL</button>
+                            `;
                         } else {
                             document.getElementById("result").textContent = "User not found or invalid response";
+                            userInfoDiv.innerHTML = ""; // Clear previous user info
                         }
                     } else {
                         document.getElementById("result").textContent = "Error: " + xhr.statusText;
+                        userInfoDiv.innerHTML = ""; // Clear previous user info
                     }
                 }
             };
             xhr.send();
+        }
+
+        function copyPlaybackURL(url) {
+            const tempInput = document.createElement("input");
+            tempInput.value = url;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            
+            const playbackButton = document.getElementById("playbackButton");
+            playbackButton.textContent = "Copied";
         }
     </script>
 </body>
