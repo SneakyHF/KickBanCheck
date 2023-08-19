@@ -6,6 +6,12 @@ usernameInput.addEventListener("input", () => {
     submitButton.disabled = usernameInput.value === "";
 });
 
+usernameInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+        checkBanStatus();
+    }
+});
+
 function clearUserInfo() {
     const userInfoElement = document.getElementById("userInfo");
     const banStatus = document.getElementById("banStatus");
