@@ -73,7 +73,9 @@ button:hover:enabled {
     color: red;
 }
 
-#logo {
+.logo-container {
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
