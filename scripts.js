@@ -28,6 +28,7 @@ function hideUserInfo() {
 
 function checkBanStatus() {
     clearUserInfo(); // Clear previous user info
+    banStatus.className = ''; // Reset the banStatus color
 
     const username = usernameInput.value;
     const url = "https://kick.com/emotes/" + encodeURIComponent(username);
@@ -72,13 +73,11 @@ function checkBanStatus() {
                             <br>
                             <button id="playbackButton" class="playback-button" onclick="copyPlaybackURL('${data[0].playback_url}')">Copy Playback URL</button>
                         `;
-
-                        // Show the user info div
+                        
                         showUserInfo();
                     } else {
                         // No user data found
                         userInfoElement.innerHTML = `<p>No user data found</p>`;
-                        hideUserInfo();
                     }
                 } else {
                     // No data found for the user
@@ -95,6 +94,7 @@ function checkBanStatus() {
 
     xhr.send();
 }
+
 
 function copyPlaybackURL(url) {
     const tempInput = document.createElement("input");
