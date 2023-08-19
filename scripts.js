@@ -78,6 +78,7 @@ function checkBanStatus() {
                     } else {
                         // No user data found
                         userInfoElement.innerHTML = `<p>No user data found</p>`;
+                        showUserInfo();
                     }
                 } else {
                     // No data found for the user
