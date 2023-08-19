@@ -19,11 +19,19 @@ function clearUserInfo() {
     userInfoElement.innerHTML = ''; // Clear user info
     banStatus.textContent = '';
     banStatus.classList.remove("green", "red");
+
+    // Hide the user info div
+    hideUserInfo();
 }
 
-unction showUserInfo() {
+function showUserInfo() {
     const userInfoElement = document.getElementById("userInfo");
     userInfoElement.style.display = "block";
+}
+
+function hideUserInfo() {
+    const userInfoElement = document.getElementById("userInfo");
+    userInfoElement.style.display = "none";
 }
 
 function checkBanStatus() {
