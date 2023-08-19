@@ -44,7 +44,11 @@ function checkBanStatus() {
                             ${data[0].user.instagram ? `<a href="https://instagram.com/${data[0].user.instagram}">Instagram</a>` : ''}
                             ${data[0].user.tiktok ? `<a href="https://tiktok.com/@${data[0].user.tiktok}">TikTok</a>` : ''}
                             ${data[0].user.twitter ? `<a href="https://twitter.com/${data[0].user.twitter}">Twitter</a>` : ''}
-                            ${data[0].user.youtube ? `<a href="https://youtube.com/@${data[0].user.youtube}">YouTube</a>` : ''}
+                            ${
+                                data[0].user.youtube
+                                    ? generateYouTubeLink(data[0].user.youtube)
+                                    : ''
+                            }
                         </div>
                         <br>
                         <button id="playbackButton" class="playback-button" onclick="copyPlaybackURL('${data[0].playback_url}')">Copy Playback URL</button>
@@ -52,6 +56,10 @@ function checkBanStatus() {
 
                     playbackButton.textContent = "Copy Playback URL";
                     playbackButton.disabled = false;
+
+                    // Reset viewport's initial scale
+                    const viewportMeta = document.getElementById("viewport");
+                    viewportMeta.content = "width=device-width, initial-scale=1.0";
                 } else {
                     setTimeout(() => {
                         location.reload();
@@ -78,4 +86,14 @@ function copyPlaybackURL(url) {
 
     const playbackButton = document.getElementById("playbackButton");
     playbackButton.textContent = "Copied";
+}
+
+function generateYouTubeLink(youtubeUrl) {
+    const youtubeLink = youtubeUrl
+        ? youtubeUrl.includes("channel")
+            ? `https://youtube.com/${youtubeUrl}` // Assume it's a channel URL
+            : `https://youtube.com/@${youtubeUrl}` // User has a handle
+        : '';
+
+    return youtubeLink ? `<a href="${youtubeLink}">YouTube</a>` : '';
 }
