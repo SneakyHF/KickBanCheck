@@ -75,14 +75,16 @@ function checkBanStatus() {
                     playbackButton.disabled = false;
                 } else {
                     // No data found for the user
-                    banStatus.textContent = "User not found";
+                    banStatus.textContent = "No data found";
                     banStatus.classList.remove("green", "red"); // Remove any previous styling
                     resultElement.classList.remove("green", "red"); // Remove color styling
                 }
             } else {
                 // Error handling when request fails
-                console.log("Error fetching user data.");
-                refreshPage();
+                banStatus.textContent = "User not found";
+                banStatus.classList.remove("green", "red"); // Remove any previous styling
+                resultElement.classList.remove("green", "red"); // Remove color styling
+                //refreshPage();
             }
         }
     };
