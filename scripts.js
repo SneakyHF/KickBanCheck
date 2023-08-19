@@ -38,7 +38,7 @@ function checkBanStatus() {
     const url = "https://kick.com/emotes/" + encodeURIComponent(username);
     const xhr = new XMLHttpRequest();
 
-    const userInfoElement = document.getElementById("userInfo"); // Declare userInfoElement
+    const userInfoElement = document.getElementById("userInfo");
 
     xhr.open("GET", url, true);
     xhr.onreadystatechange = function() {
@@ -54,7 +54,8 @@ function checkBanStatus() {
                     banStatus.classList.toggle("green", !isBanned);
                     banStatus.classList.toggle("red", isBanned);
 
-                    // Display user info
+                    if (data[0].user) {
+                        // Display user info
                     userInfoElement.innerHTML = `
                         <center><img src="${data[0].user.profile_pic}" alt="Profile Picture"></center>
                         <br>
@@ -80,8 +81,13 @@ function checkBanStatus() {
                         <button id="playbackButton" class="playback-button" onclick="copyPlaybackURL('${data[0].playback_url}')">Copy Playback URL</button>
                     `;
 
-                    // Show the user info div
-                    showUserInfo();
+                        // Show the user info div
+                        showUserInfo();
+                    } else {
+                        // No user data found
+                        userInfoElement.innerHTML = `<p>No user data found</p>`;
+                        hideUserInfo();
+                    }
                 } else {
                     // No data found for the user
                     banStatus.textContent = "No data found";
