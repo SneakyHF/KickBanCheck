@@ -15,7 +15,7 @@
         <label for="username">Enter Username</label>
         <input type="text" id="username" required onkeydown="if (event.key === 'Enter') checkBanStatus()">
         <button onclick="checkBanStatus()" id="submitButton" disabled>Check</button>
-        <p id="result" class="green">Banned: <span id="banStatus">unknown</span></p>
+        <p id="result" class="green"><span id="banStatus"></span></p>
         <div class="info" id="userInfo"></div>
     </div>
 
