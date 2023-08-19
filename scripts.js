@@ -6,7 +6,24 @@ usernameInput.addEventListener("input", () => {
     submitButton.disabled = usernameInput.value === "";
 });
 
+function clearUserInfo() {
+    const userInfoElement = document.getElementById("userInfo");
+    const banStatus = document.getElementById("banStatus");
+
+    userInfoElement.innerHTML = ''; // Clear user info
+    banStatus.textContent = '';
+    banStatus.classList.remove("green", "red");
+}
+
+function refreshPage(delay = 1000) {
+    setTimeout(() => {
+        location.reload();
+    }, delay);
+}
+
 function checkBanStatus() {
+    clearUserInfo(); // Clear previous user info
+
     const username = document.getElementById("username").value;
     const url = "https://kick.com/emotes/" + encodeURIComponent(username);
     const xhr = new XMLHttpRequest();
@@ -57,14 +74,14 @@ function checkBanStatus() {
                     playbackButton.textContent = "Copy Playback URL";
                     playbackButton.disabled = false;
                 } else {
-                    setTimeout(() => {
-                        location.reload();
-                    }, 0);
+                    // No data found for the user
+                    banStatus.textContent = "User not found.";
+                    refreshPage();
                 }
             } else {
-                setTimeout(() => {
-                    location.reload();
-                }, 0);
+                // Error handling when request fails
+                console.log("Error fetching user data.");
+                refreshPage();
             }
         }
     };
