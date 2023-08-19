@@ -1,0 +1,143 @@
+/* styles.css */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #282c36;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+}
+
+.container {
+    text-align: center;
+    background-color: #37474f;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+label, input, button {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 8px;
+    width: 200px;
+    border: none;
+    border-radius: 5px;
+    color: #4caf50;
+}
+
+button {
+    padding: 8px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+button:disabled:hover {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+button:hover:enabled {
+    background-color: #45a049;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #777;
+}
+
+.green {
+    color: #4caf50;
+}
+
+.red {
+    color: red;
+}
+
+#logo {
+    margin-bottom: 20px;
+}
+
+.info {
+    text-align: left;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.info img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.info .social-links a {
+    margin-right: 10px;
+    color: #4caf50; /* Theme accent color for links */
+}
+
+.info p {
+    white-space: pre-wrap;
+    margin: 10px 0; /* Add spacing between paragraphs */
+}
+
+.playback-button {
+    display: block;
+    margin: 10px auto; /* Add margin for spacing */
+    padding: 6px 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.bio {
+    max-width: 500px; /* Set the maximum width as needed */
+    white-space: pre-line;
+    margin: 0 auto; /* Center align the bio text */
+}
+
+/* Theme accent color for text */
+.accent-text {
+    color: #4caf50;
+}
+
+/* Base styles for all devices */
+
+/* Mobile devices (up to 600px width) */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    input, button {
+        width: 100%; /* Full width for inputs and buttons */
+    }
+
+    .info img {
+        max-width: 50px; /* Smaller profile picture for mobile */
+    }
+
+    .playback-button {
+        margin-top: 20px; /* More spacing for mobile */
+    }
+
+    .bio {
+        max-width: 100%; /* Full width for the bio */
+    }
+}
