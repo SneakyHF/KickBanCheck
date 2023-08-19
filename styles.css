@@ -112,12 +112,18 @@ button:hover:enabled {
     margin: 0 auto; /* Center align the bio text */
 }
 
+#username {
+    text-align: center;
+    margin: 0 auto 10px;
+    display: block;
+    width: 100%; /* Ensure the input takes up the full width of the container */
+    max-width: 300px; /* Limit the maximum width of the input */
+}
+
 /* Theme accent color for text */
 .accent-text {
     color: #4caf50;
 }
-
-/* Base styles for all devices */
 
 /* Base styles for all devices */
 
