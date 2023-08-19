@@ -119,6 +119,8 @@ button:hover:enabled {
 
 /* Base styles for all devices */
 
+/* Base styles for all devices */
+
 /* Mobile devices (up to 600px width) */
 @media (max-width: 600px) {
     .container {
@@ -127,6 +129,7 @@ button:hover:enabled {
 
     input, button {
         width: 100%; /* Full width for inputs and buttons */
+        box-sizing: border-box; /* Include padding in the width calculation */
     }
 
     .info img {
@@ -139,5 +142,6 @@ button:hover:enabled {
 
     .bio {
         max-width: 100%; /* Full width for the bio */
+        text-align: center; /* Center-align the bio text */
     }
 }
