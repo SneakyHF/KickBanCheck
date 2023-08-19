@@ -56,10 +56,6 @@ function checkBanStatus() {
 
                     playbackButton.textContent = "Copy Playback URL";
                     playbackButton.disabled = false;
-
-                    // Reset viewport's initial scale
-                    const viewportMeta = document.getElementById("viewport");
-                    viewportMeta.content = "width=device-width, initial-scale=1.0";
                 } else {
                     setTimeout(() => {
                         location.reload();
