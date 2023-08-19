@@ -7,11 +7,13 @@ usernameInput.addEventListener("input", () => {
     submitButton.disabled = usernameInput.value === "";
 });
 
-usernameInput.addEventListener("keyup", (event) => {
-    if (event.key === "Enter" && usernameInput.value.trim() !== "") {
-        checkBanStatus();
-    } else if (event.key === "Enter") {
-        event.preventDefault(); // Prevent the default behavior of the Enter key
+usernameInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        if (usernameInput.value.trim() === "") {
+            event.preventDefault(); // Prevent the default behavior of the Enter key
+        } else {
+            checkBanStatus();
+        }
     }
 });
 
