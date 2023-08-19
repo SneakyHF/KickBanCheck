@@ -73,12 +73,6 @@ button:hover:enabled {
     color: red;
 }
 
-.logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
 .info {
     text-align: left;
     font-size: 14px;
