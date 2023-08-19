@@ -11,6 +11,14 @@ body {
     color: #ffffff;
 }
 
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    max-width: 100%; /* Limit the logo's maximum width */
+    margin-bottom: 20px; /* Add margin at the bottom */
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -20,6 +28,7 @@ body {
     background-color: #37474f;
     border-radius: 10px;
     padding: 20px;
+    margin-top: 20px; /* Add margin at the top */
 }
 
 label, input, button {
