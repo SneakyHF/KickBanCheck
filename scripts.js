@@ -15,6 +15,11 @@ function clearUserInfo() {
     banStatus.classList.remove("green", "red");
 }
 
+unction showUserInfo() {
+    const userInfoElement = document.getElementById("userInfo");
+    userInfoElement.style.display = "block";
+}
+
 function checkBanStatus() {
     clearUserInfo(); // Clear previous user info
 
@@ -23,13 +28,10 @@ function checkBanStatus() {
     const xhr = new XMLHttpRequest();
 
     xhr.open("GET", url, true);
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 const data = JSON.parse(xhr.responseText);
-                const resultElement = document.getElementById("result");
-                const userInfoElement = document.getElementById("userInfo");
-                const playbackButton = document.getElementById("playbackButton");
                 const banStatus = document.getElementById("banStatus");
 
                 if (Array.isArray(data) && data.length > 0) {
@@ -39,7 +41,7 @@ function checkBanStatus() {
                     banStatus.classList.toggle("green", !isBanned);
                     banStatus.classList.toggle("red", isBanned);
 
-                   // Display user info
+                    // Display user info
                     userInfoElement.innerHTML = `
                         <center><img src="${data[0].user.profile_pic}" alt="Profile Picture"></center>
                         <br>
@@ -65,19 +67,18 @@ function checkBanStatus() {
                         <button id="playbackButton" class="playback-button" onclick="copyPlaybackURL('${data[0].playback_url}')">Copy Playback URL</button>
                     `;
 
-                    playbackButton.textContent = "Copy Playback URL";
-                    playbackButton.disabled = false;
+                    // Show the user info div
+                    showUserInfo();
                 } else {
                     // No data found for the user
                     banStatus.textContent = "No data found";
                     banStatus.classList.remove("green", "red"); // Remove any previous styling
-                    resultElement.classList.remove("green", "red"); // Remove color styling
                 }
             } else {
                 // Error handling when request fails
+                const banStatus = document.getElementById("banStatus");
                 banStatus.textContent = "User not found";
                 banStatus.classList.remove("green", "red"); // Remove any previous styling
-                resultElement.classList.remove("green", "red"); // Remove color styling
             }
         }
     };
